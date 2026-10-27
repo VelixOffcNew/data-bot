@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0a0a" />
+<title>List Harga • CryptexCore</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { width: 100%; overflow-x: hidden; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0a0a0a;
+  color: #e8e8ec;
+  min-height: 100vh;
+  padding: 20px 16px calc(40px + env(safe-area-inset-bottom));
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(circle at 15% 5%, rgba(251,191,36,0.10), transparent 45%),
+    radial-gradient(circle at 85% 95%, rgba(168,85,247,0.08), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(59,130,246,0.04), transparent 60%);
+  background-attachment: fixed;
+}
+:root {
+  --bg-0: #0a0a0a; --bg-1: #14141a; --bg-2: #1c1c24; --bg-3: #26262f; --bg-4: #32323d;
+  --stroke: #2e2e38; --stroke-2: #3a3a45;
+  --text: #e8e8ec; --text-2: #a0a0aa; --text-3: #6a6a75; --text-4: #4a4a55;
+  --gold: #fbbf24; --gold-deep: #d97706;
+  --success: #4ade80; --danger: #ef4444; --info: #60a5fa;
+  --purple: #a855f7; --pink: #ec4899;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.container { max-width: 720px; margin: 0 auto; }
+
+/* ═══ HERO ═══ */
+.hero {
+  text-align: center;
+  padding: 28px 16px 24px;
+  position: relative;
+  margin-bottom: 20px;
+}
+.hero-badge {
+  display: inline-block;
+  padding: 5px 14px;
+  background: linear-gradient(135deg, rgba(251,191,36,0.18), rgba(251,191,36,0.05));
+  border: 1px solid rgba(251,191,36,0.4);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  margin-bottom: 14px;
+  box-shadow: 0 4px 20px rgba(251,191,36,0.15);
+}
+.hero h1 {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  background: linear-gradient(90deg, #fff 0%, #fbbf24 50%, #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
+  margin-bottom: 10px;
+}
+@keyframes shine { to { background-position: 200% center; } }
+.hero p {
+  font-size: 13.5px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
+
+/* ═══ INFO BOX ═══ */
+.info-box {
+  padding: 14px 16px;
+  background: rgba(96,165,250,0.06);
+  border: 1px solid rgba(96,165,250,0.3);
+  border-radius: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.5s var(--ease-out);
+}
+.info-box i { color: var(--info); font-size: 16px; margin-top: 2px; flex-shrink: 0; }
+.info-box b { color: var(--text); }
+
+/* ═══ TABS ═══ */
+.tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+  margin-bottom: 8px;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0;
+  padding: 11px 18px;
+  background: var(--bg-2);
+  border: 1.5px solid var(--stroke);
+  border-radius: 999px;
+  color: var(--text-3);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s var(--ease-spring);
+  scroll-snap-align: start;
+  white-space: nowrap;
+}
+.tab i { font-size: 13px; }
+.tab:active { transform: scale(0.94); }
+.tab.active {
+  background: linear-gradient(135deg, rgba(251,191,36,0.18), rgba(251,191,36,0.05));
+  border-color: rgba(251,191,36,0.6);
+  color: var(--gold);
+  box-shadow: 0 4px 16px rgba(251,191,36,0.2);
+}
+.tab.active i { color: var(--gold); }
+
+/* ═══ ROLE HEADER ═══ */
+.role-header {
+  padding: 20px 4px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--stroke);
+  margin-bottom: 16px;
+  animation: fadeInUp 0.4s var(--ease-out);
+}
+.role-header-icon {
+  width: 46px; height: 46px;
+  border-radius: 14px;
+  display: grid; place-items: center;
+  font-size: 18px;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+.role-header-info { flex: 1; min-width: 0; }
+.role-header-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 3px;
+  letter-spacing: 0.2px;
+}
+.role-header-sub {
+  font-size: 11.5px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  line-height: 1.5;
+}
+
+/* ═══ PRICE ITEM ═══ */
+.price-list { display: flex; flex-direction: column; gap: 10px; }
+
+.price-item {
+  width: 100%;
+  background: linear-gradient(155deg, rgba(38,38,47,0.75), rgba(20,20,26,0.75));
+  border: 1.5px solid var(--stroke);
+  border-radius: 16px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.22s var(--ease-spring);
+  animation: fadeInUp 0.4s var(--ease-out) backwards;
+}
+.price-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(251,191,36,0.10), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.price-item:hover::before { opacity: 1; }
+.price-item:active {
+  transform: scale(0.98);
+  background: linear-gradient(155deg, rgba(48,48,60,0.9), rgba(30,30,40,0.9));
+  border-color: rgba(251,191,36,0.4);
+}
+
+.price-item.popular {
+  border-color: rgba(251,191,36,0.55);
+  background: linear-gradient(155deg, rgba(251,191,36,0.10), rgba(20,20,26,0.9));
+  box-shadow: 0 6px 24px rgba(251,191,36,0.15);
+}
+.price-item.popular::before { opacity: 0.6; }
+
+.pi-left { flex: 1; min-width: 0; position: relative; z-index: 1; }
+.pi-durasi {
+  font-size: 15.5px;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+  letter-spacing: 0.2px;
+}
+.pi-badge {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  flex-shrink: 0;
+}
+.pi-badge.pop {
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  color: #0a0a0a;
+  box-shadow: 0 2px 8px rgba(251,191,36,0.4);
+}
+.pi-badge.hemat {
+  background: rgba(74,222,128,0.15);
+  color: #4ade80;
+  border: 1px solid rgba(74,222,128,0.4);
+}
+.pi-sub {
+  font-size: 11.5px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  letter-spacing: 0.3px;
+}
+.pi-right {
+  text-align: right;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.pi-harga {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+.price-item.popular .pi-harga { color: var(--gold); }
+.pi-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: var(--text-2);
+  transition: all 0.2s ease;
+}
+.price-item:active .pi-cta {
+  background: rgba(251,191,36,0.2);
+  border-color: rgba(251,191,36,0.5);
+  color: var(--gold);
+}
+.price-item.popular .pi-cta {
+  background: rgba(251,191,36,0.15);
+  border-color: rgba(251,191,36,0.5);
+  color: var(--gold);
+}
+.pi-cta i { font-size: 9px; }
+
+/* ═══ CONTACT CARD (Owner) ═══ */
+.contact-card {
+  padding: 32px 24px;
+  background: linear-gradient(155deg, rgba(251,191,36,0.10), rgba(20,20,26,0.9));
+  border: 1.5px solid rgba(251,191,36,0.5);
+  border-radius: 20px;
+  text-align: center;
+  margin-top: 16px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.4s var(--ease-out);
+}
+.contact-card::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(from 0deg, transparent, rgba(251,191,36,0.15), transparent, rgba(251,191,36,0.10), transparent);
+  animation: rotate 12s linear infinite;
+  pointer-events: none;
+}
+@keyframes rotate { to { transform: rotate(360deg); } }
+.contact-card-inner { position: relative; z-index: 1; }
+.contact-icon {
+  width: 72px; height: 72px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  display: grid; place-items: center;
+  font-size: 30px;
+  color: #0a0a0a;
+  box-shadow: 0 8px 32px rgba(251,191,36,0.4);
+  animation: pulse 2.5s infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 8px 32px rgba(251,191,36,0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 12px 40px rgba(251,191,36,0.6); }
+}
+.contact-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+.contact-desc {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 32px;
+  background: linear-gradient(135deg, #229ED9, #1d7fb8);
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(34,158,217,0.4);
+  transition: transform 0.15s ease;
+}
+.contact-btn:active { transform: scale(0.96); }
+.contact-btn i { font-size: 16px; }
+
+/* ═══ FOOTER ═══ */
+.footer {
+  text-align: center;
+  padding: 32px 16px 20px;
+  margin-top: 12px;
+}
+.footer-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--stroke), transparent);
+  margin-bottom: 20px;
+}
+.footer-text {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-4);
+  letter-spacing: 2px;
+  line-height: 1.8;
+}
+
+/* ═══ TOAST ═══ */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: rgba(28,28,36,0.98);
+  border: 1px solid var(--stroke-2);
+  border-radius: 14px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s var(--ease-spring);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+  max-width: calc(100% - 40px);
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+.toast i { color: var(--success); font-size: 15px; flex-shrink: 0; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 380px) {
+  .hero h1 { font-size: 26px; }
+  .price-item { padding: 14px 14px; gap: 10px; }
+  .pi-harga { font-size: 14.5px; }
+  .pi-durasi { font-size: 14px; }
+  .pi-sub { font-size: 10.5px; }
+  .pi-cta { padding: 4px 10px; font-size: 9.5px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">◆ CRYPTEXCORE ◆</div>
+    <h1>List Harga</h1>
+    <p>Pilih paket → klik → langsung ke Telegram</p>
+  </div>
+
+  <!-- INFO -->
+  <div class="info-box">
+    <i class="fas fa-circle-info"></i>
+    <div>Pembayaran: <b>QRIS • DANA • OVO • GOPAY</b>. Setelah klik paket, kamu akan diarahkan ke Telegram dengan pesan otomatis.</div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-cat="member"><i class="fas fa-user"></i> Member</button>
+    <button class="tab" data-cat="vip"><i class="fas fa-gem"></i> VIP</button>
+    <button class="tab" data-cat="reseller"><i class="fas fa-briefcase"></i> Reseller</button>
+    <button class="tab" data-cat="pt"><i class="fas fa-handshake"></i> Partner</button>
+    <button class="tab" data-cat="admin"><i class="fas fa-user-shield"></i> Admin</button>
+    <button class="tab" data-cat="owner"><i class="fas fa-crown"></i> Owner</button>
+  </div>
+
+  <!-- PRICE CONTAINER -->
+  <div id="priceContainer"></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-line"></div>
+    <div class="footer-text">© 2026 CRYPTEXCORE<br>HARGA DAPAT BERUBAH TANPA NOTIFIKASI</div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <i class="fas fa-circle-check"></i>
+  <span id="toastText">Membuka Telegram...</span>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   ✏️ GANTI USERNAME TELEGRAM DI SINI (1x saja)
+   ═══════════════════════════════════════════════════════════ */
+const TELEGRAM_USER = 'Gezastecu';
+
+/* ═══════════════════════════════════════════════════════════
+   💰 DATA HARGA — Edit sesuai kebutuhan
+   ═══════════════════════════════════════════════════════════ */
+const PRICES = {
+  member: {
+    name: 'Member',
+    icon: 'fa-user',
+    gradient: 'linear-gradient(135deg, #c0c0c8, #8a8a95)',
+    desc: 'Akses dasar semua tools CryptexCore',
+    items: [
+      { durasi: '5 Hari',   harga: 'Rp 10.000', sub: 'Coba dulu' },
+      { durasi: '7 Hari',   harga: 'Rp 14.000', sub: 'Mingguan' },
+      { durasi: '14 Hari',  harga: 'Rp 20.000', sub: '2 Minggu' },
+      { durasi: '1 Bulan',  harga: 'Rp 35.000', sub: 'Paling laris', popular: true }
+    ]
+  },
+
+  vip: {
+    name: 'VIP',
+    icon: 'fa-gem',
+    gradient: 'linear-gradient(135deg, #ec4899, #be185d)',
+    desc: 'Akses premium',
+    items: [
+          { durasi: '5 Hari',   harga: 'Rp 15.000', sub: 'Coba dulu' },
+      { durasi: '7 Hari',   harga: 'Rp 20.000', sub: 'Mingguan' },
+      { durasi: '14 Hari',  harga: 'Rp 30.000', sub: '2 Minggu' },
+      { durasi: '1 Bulan',  harga: 'Rp 50.000',  sub: 'Premium access', popular: true }
+    ]
+  },
+
+  reseller: {
+    name: 'Reseller',
+    icon: 'fa-briefcase',
+    gradient: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+    desc: 'Bisa jual akun + create account user',
+    items: [
+      { durasi: '1 Bulan',  harga: 'Rp 75.000',  sub: 'Hemat 10%', hemat: 'HEMAT 10%' }
+    ]
+  },
+
+  pt: {
+    name: 'Partner (PT)',
+    icon: 'fa-handshake',
+    gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)',
+    desc: 'Bisa buat Reseller + akses lebih luas',
+    items: [
+      { durasi: 'Permanen',  harga: 'Rp 100.000',  sub: 'Level partner' }
+    ]
+  },
+
+  admin: {
+    name: 'Admin',
+    icon: 'fa-user-shield',
+    gradient: 'linear-gradient(135deg, #ef4444, #b91c1c)',
+    desc: 'Kelola user + moderasi sistem',
+    items: [
+      { durasi: 'Permanen',  harga: 'Rp 150.000', sub: 'Hemat 29%', hemat: 'HEMAT 29%' }
+    ]
+  },
+
+  owner: {
+    name: 'Owner',
+    icon: 'fa-crown',
+    gradient: 'linear-gradient(135deg, #fbbf24, #d97706)',
+    desc: 'Akses penuh sistem — nego langsung',
+    contact: true
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER
+   ═══════════════════════════════════════════════════════════ */
+function renderCategory(cat, animate = true) {
+  const data = PRICES[cat];
+  const container = document.getElementById('priceContainer');
+  if (!data || !container) return;
+
+  // ─── Contact-only role (Owner) ───
+  if (data.contact) {
+    container.innerHTML = `
+      <div class="role-header">
+        <div class="role-header-icon" style="background:${data.gradient}">
+          <i class="fas ${data.icon}"></i>
+        </div>
+        <div class="role-header-info">
+          <div class="role-header-title">${data.name}</div>
+          <div class="role-header-sub">${data.desc}</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-inner">
+          <div class="contact-icon"><i class="fas fa-crown"></i></div>
+          <div class="contact-title">Full Access System</div>
+          <div class="contact-desc">
+            Akses penuh: kelola user, sender, owner zone, broadcast, build tools.
+            Harga nego — hubungi owner langsung via Telegram.
+          </div>
+          <button class="contact-btn" onclick="openTelegram('Owner', 'Nego', 'Contact Admin')">
+            <i class="fab fa-telegram"></i> HUBUNGI OWNER
+          </button>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // ─── Normal price list ───
+  const itemsHTML = data.items.map((item, idx) => {
+    const safeDurasi = escapeHtml(item.durasi);
+    const safeHarga = escapeHtml(item.harga);
+    const safeSub = escapeHtml(item.sub || '');
+    const safePaket = escapeHtml(data.name);
+
+    return `
+      <button class="price-item ${item.popular ? 'popular' : ''}"
+              style="animation-delay:${idx * 40}ms"
+              data-paket="${safePaket}"
+              data-durasi="${safeDurasi}"
+              data-harga="${safeHarga}"
+              onclick="handleBuy(this)">
+        <div class="pi-left">
+          <div class="pi-durasi">
+            ${safeDurasi}
+            ${item.popular ? '<span class="pi-badge pop">🔥 POPULER</span>' : ''}
+            ${item.hemat ? `<span class="pi-badge hemat">${item.hemat}</span>` : ''}
+          </div>
+          <div class="pi-sub">${safeSub}</div>
+        </div>
+        <div class="pi-right">
+          <div class="pi-harga">${safeHarga}</div>
+          <div class="pi-cta">BELI <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </button>
+    `;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="role-header">
+      <div class="role-header-icon" style="background:${data.gradient}">
+        <i class="fas ${data.icon}"></i>
+      </div>
+      <div class="role-header-info">
+        <div class="role-header-title">Paket ${data.name}</div>
+        <div class="role-header-sub">${data.desc}</div>
+      </div>
+    </div>
+    <div class="price-list">${itemsHTML}</div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BUY HANDLER
+   ═══════════════════════════════════════════════════════════ */
+function handleBuy(el) {
+  const paket = el.dataset.paket;
+  const durasi = el.dataset.durasi;
+  const harga = el.dataset.harga;
+  openTelegram(paket, durasi, harga);
+}
+
+function openTelegram(paket, durasi, harga) {
+  const msg = `Halo Admin 👋
+
+Saya mau beli:
+
+📦 Paket : ${paket}
+⏱️ Durasi : ${durasi}
+💰 Harga : ${harga}
+
+Mohon info pembayaran & prosesnya ya.
+
+Terima kasih 🙏`;
+
+  const url = `https://t.me/${TELEGRAM_USER}?text=${encodeURIComponent(msg)}`;
+
+  // Show toast
+  showToast(`Membuka Telegram...`);
+
+  // Open in new tab (or fallback to same)
+  setTimeout(() => {
+    const win = window.open(url, '_blank');
+    if (!win || win.closed || typeof win.closed === 'undefined') {
+      // Popup blocked fallback
+      window.location.href = url;
+    }
+  }, 200);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TABS
+   ═══════════════════════════════════════════════════════════ */
+document.getElementById('tabs').addEventListener('click', (e) => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  renderCategory(tab.dataset.cat);
+  try { localStorage.setItem('pricelist_cat', tab.dataset.cat); } catch(_) {}
+  if (navigator.vibrate) try { navigator.vibrate(8); } catch(_) {}
+});
+
+/* ═══════════════════════════════════════════════════════════
+   TOAST
+   ═══════════════════════════════════════════════════════════ */
+let toastTimer = null;
+function showToast(text) {
+  const t = document.getElementById('toast');
+  const tt = document.getElementById('toastText');
+  if (!t || !tt) return;
+  tt.textContent = text;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UTILS
+   ═══════════════════════════════════════════════════════════ */
+function escapeHtml(str) {
+  return String(str == null ? '' : str).replace(/[&<>"']/g, m => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[m]));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BOOT — restore last category
+   ═══════════════════════════════════════════════════════════ */
+(function boot() {
+  let cat = 'member';
+  try { cat = localStorage.getItem('pricelist_cat') || 'member'; } catch(_) {}
+  if (!PRICES[cat]) cat = 'member';
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.cat === cat);
+  });
+  renderCategory(cat);
+})();
+</script>
+</body>
+</html>
